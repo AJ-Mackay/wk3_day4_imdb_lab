@@ -11,6 +11,14 @@ def initialize(options)
   @last_name = options['last_name']
 end
 
+def movies()
+  sql = "SELECT movies.* FROM movies INNER JOIN castings ON castings.movie_id = movies.id WHERE castings.star_id = $1"
+  values = [@id]
+  stars = SqlRunner.run(sql, values)
+  results = movies.map {|movie| Movie.new(movie)}
+  return results
+end
+
 def self.all
 sql='SELECT * FROM stars'
 stars=SqlRunner.run(sql)
