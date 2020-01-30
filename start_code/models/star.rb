@@ -11,6 +11,13 @@ def initialize(options)
   @last_name = options['last_name']
 end
 
+def self.all
+sql='SELECT * FROM stars'
+stars=SqlRunner.run(sql)
+result=stars.map{|star| Star.new(star)}
+return result
+end
+
 def save()
   sql = "INSERT INTO stars (first_name, last_name) VALUES ($1, $2) RETURNING id"
   values = [@first_name, @last_name]
