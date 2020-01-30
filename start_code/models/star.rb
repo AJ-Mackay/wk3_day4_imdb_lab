@@ -18,6 +18,12 @@ result=stars.map{|star| Star.new(star)}
 return result
 end
 
+def update()
+  sql = "UPDATE stars SET (first_name, last_name) = ($1, $2) WHERE id = $3"
+  values=[@first_name, @last_name, @id]
+  SqlRunner.run(sql, values)
+end
+
 def save()
   sql = "INSERT INTO stars (first_name, last_name) VALUES ($1, $2) RETURNING id"
   values = [@first_name, @last_name]

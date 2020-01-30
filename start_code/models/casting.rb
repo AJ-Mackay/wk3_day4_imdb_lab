@@ -20,6 +20,12 @@ def save()
   @id=casting['id'].to_i
 end
 
+def update()
+sql="UPDATE castings SET (movie_id,star_id,fee)=($1,$2,$3) WHERE id=$4"
+values=[@movie_id,@star_id,@fee,@id]
+SqlRunner.run(sql,values)
+end
+
 def self.all()
   sql="SELECT * FROM castings"
   castings=SqlRunner.run(sql)
